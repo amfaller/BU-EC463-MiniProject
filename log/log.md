@@ -10,3 +10,6 @@ Tony read through some React Native documentation, starting from [Introduction](
 ## September 8, 2021
 
 Yuxuan inits this project with `expo` `minimum app` preset and `README.md`
+
+Tony added a hardcoded function to retrieve product data from the FDA API. This simply prints the returned JSON string to the web page.
+
