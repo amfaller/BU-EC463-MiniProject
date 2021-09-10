@@ -5,14 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 // Put API Key here
 var api_key = ''
 
-// Put query UPC code here (TODO: Get UPC code from camera (barcode))
-var upc_code = 602652184024   // Placeholder value
-
 // -------------------------------------------------------------------
 
-// A sample function to fetch data from the FDA API
+// Function to fetch data from the FDA API
 // Based on https://aboutreact.com/react-native-http-networking/
-const GetDataByUPC = () => {
+const GetDataByUPC = (upc_code) => {
 
   // Keep output in a `state` since it can change
   const [output, setOutput] = useState('')
@@ -38,6 +35,7 @@ const GetDataByUPC = () => {
     setOutput('Error loading from FDA API')
   })
 
+  // TODO: Instead of returning a text dump, send the JSON to the database
   return(
       <Text>{output}</Text>
   )
@@ -49,7 +47,12 @@ const GetDataByUPC = () => {
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>{GetDataByUPC()}</Text>
+      { /*  TODO: Add the camera module to scan in the barcode
+                  and get the UPC number from barcode.
+            This is a placeholder UPC number for proof-of-life.
+        */
+      }
+      <Text>{GetDataByUPC(602652184024)}</Text>
       <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
