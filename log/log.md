@@ -13,3 +13,9 @@ Yuxuan inits this project with `expo` `minimum app` preset and `README.md`
 
 Tony added a hardcoded function to retrieve product data from the FDA API. This simply prints the returned JSON string to the web page.
 
+## September 9, 2021
+
+Tony began learning how to use Firebase. He tried to follow [one tutorial](https://rnfirebase.io/) then [another](https://docs.expo.dev/guides/setup-native-firebase/), but he was unsuccessful. When he tried to launch the app, the emulators refused to connect to the server.
+
+Tony also modified the FDA API function to be more generic and not hard coded.
+
