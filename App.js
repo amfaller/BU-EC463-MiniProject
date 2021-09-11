@@ -1,6 +1,11 @@
+// This should be in home.js, now it's a placeholder
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Stylesheet, ScrollView, Text, View } from 'react-native';
+import containers from './styles/containers';
+import fonts from './styles/fonts';
+import SoftSquare from './components/shapes';
+import { getThemeColorByOpacity } from './components/utils';
 
 // Put API Key here
 var api_key = ''
@@ -9,6 +14,7 @@ var api_key = ''
 
 // Function to fetch data from the FDA API
 // Based on https://aboutreact.com/react-native-http-networking/
+// Call with `<Text>{GetDataByUPC(602652184024)}</Text>`
 const GetDataByUPC = (upc_code) => {
 
   // Keep output in a `state` since it can change
@@ -46,24 +52,41 @@ const GetDataByUPC = (upc_code) => {
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      { /*  TODO: Add the camera module to scan in the barcode
-                  and get the UPC number from barcode.
-            This is a placeholder UPC number for proof-of-life.
-        */
-      }
-      <Text>{GetDataByUPC(602652184024)}</Text>
-      <Text>Open up App.js to start working on your app!</Text>
+
+    <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
+
+      {/* TODO: contains magic number */}
+      <View style={{ flex: 30 }}>
+        <ScrollView
+          horizontal={false}
+          contentContainerStyle={{ alignItems: "center" }}
+          style={[containers.scrollViewStyle]}
+        >
+
+          <View style={[containers.titleContainer]}>
+            <Text style={[fonts.titleFont]}>Home</Text>
+          </View>
+
+          <SoftSquare color={getThemeColorByOpacity(0.3)}>
+            <View style={containers.container}>
+              <Text style={[fonts.cardTitle]}>
+                Today's Intake
+              </Text>
+            </View>
+          </SoftSquare>
+
+          <View style={[containers.container, {backgroundColor: 'rgb(190, 190, 190)'}]}>
+            <Text>Container 2</Text>
+          </View>
+
+        </ScrollView>
+      </View>
+
+      {/* Navigation bar */}
+      <View style={[containers.mainContainer, { flex: 1, backgroundColor: 'rgb(240, 240, 240)' }]}>
+        <Text>Navigate</Text>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
