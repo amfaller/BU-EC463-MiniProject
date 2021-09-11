@@ -24,3 +24,7 @@ Tony also modified the FDA API function to be more generic and not hard coded.
 Tony struggled to get Firebase working. He followed instructions and believes the appropriate Firebase SDKs are installed in the app, but when actually trying to make an API call, an error pops up that says `Error: You attempted to use a firebase module that's not installed in your Android project  by calling firebase.app().` [This is not a new bug](https://github.com/invertase/react-native-firebase/issues/977), so he will continue searching for a solution.
 
 Tony attempted to implement [authenticaion](https://rnfirebase.io/auth/usage) and [database](https://rnfirebase.io/database/usage), but neither was successful.
+
+## September 11, 2021
+
+Tony realized that in order to use Firebase in our project, we had to create our project under context of the React Native CLI, as opposed to the Expo CLI. Firebase is considered a "native module," meaning that it is incompatible with Expo. He used a test project as a proof-of-concept for this.
