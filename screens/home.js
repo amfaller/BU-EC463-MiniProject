@@ -1,4 +1,3 @@
-// This should be in home.js, now it's a placeholder
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
@@ -14,7 +13,7 @@ export default function App() {
       <StatusBar style="auto" />
 
       {/* TODO: contains magic number */}
-      <View style={{ flex: 30 }}>
+      <View style={{ flex: 17 }}>
         <ScrollView
           horizontal={false}
           contentContainerStyle={{ alignItems: "center" }}
@@ -33,7 +32,7 @@ export default function App() {
             </View>
           </SoftSquare>
 
-          <View style={[containers.container, {backgroundColor: 'rgb(190, 190, 190)'}]}>
+          <View style={[containers.container]}>
             <Text>Container 2</Text>
           </View>
 
@@ -41,7 +40,7 @@ export default function App() {
       </View>
 
       {/* Navigation bar */}
-      <View style={[containers.mainContainer, { flex: 1, backgroundColor: 'rgb(240, 240, 240)' }]}>
+      <View style={[containers.mainContainer, { flex: 1, backgroundColor: '#f0f0f0' }]}>
         <Text>Navigate</Text>
       </View>
     </View>
