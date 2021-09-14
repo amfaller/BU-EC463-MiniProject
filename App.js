@@ -49,7 +49,8 @@ export default function App() {
           },
           tabBarActiveTintColor: '#6FD98E',
           tabBarInactiveTintColor: 'gray',
-          headerShown: false
+          headerShown: false,
+          tabBarShowLabel: false
         })}>
         <Tab.Screen name="Home" component={HomeSreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
