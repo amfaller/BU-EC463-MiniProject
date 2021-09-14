@@ -28,3 +28,12 @@ Tony attempted to implement [authenticaion](https://rnfirebase.io/auth/usage) an
 ## September 11, 2021
 
 Tony realized that in order to use Firebase in our project, we had to create our project under context of the React Native CLI, as opposed to the Expo CLI. Firebase is considered a "native module," meaning that it is incompatible with Expo. He used a test project as a proof-of-concept for this.
+
+## September 13, 2021
+
+Tony created a proof-of-concept application for use with Google authentication. He got as far as to add a button that brings up the Google sign-in dialogue when clicked, but once sign-in is attempted, a `DEVELOPER_ERROR` is raised. He followed these tutorials after creating a new project with `npx react-native init AwesomeProject2`.
+
+* [Installation](https://github.com/react-native-google-signin/google-signin#project-setup-and-initialization)
+* [Configure Firebase with Android Credentials](https://rnfirebase.io/)
+* [General `auth` instructions](https://rnfirebase.io/auth/usage)
+* [Google-specific `auth` instructions](https://rnfirebase.io/auth/social-auth#google)
