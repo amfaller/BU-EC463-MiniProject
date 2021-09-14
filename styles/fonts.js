@@ -13,7 +13,7 @@ const fonts = StyleSheet.create({
         lineHeight: 50,
 
         left: '5%',
-        top: '5%',
+        top: '8%',
     }
 });
 
