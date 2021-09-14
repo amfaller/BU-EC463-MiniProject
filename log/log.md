@@ -28,3 +28,7 @@ Tony attempted to implement [authenticaion](https://rnfirebase.io/auth/usage) an
 ## September 11, 2021
 
 Tony realized that in order to use Firebase in our project, we had to create our project under context of the React Native CLI, as opposed to the Expo CLI. Firebase is considered a "native module," meaning that it is incompatible with Expo. He used a test project as a proof-of-concept for this.
+
+## September 14, 2021
+
+Yuxuan rebuilt the entire app with react-native CLI following the [tutorial](https://reactnative.dev/docs/environment-setup). Furthermore, he added [TabNavigation](https://reactnavigation.org/docs/tab-based-navigation), [SplashScreen](https://github.com/zoontek/react-native-bootsplash) and [customizedFont](https://mehrankhandev.medium.com/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4) to the android native and re-drew the app icon.
