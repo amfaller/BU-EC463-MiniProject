@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "815056068464",
+    "project_id": "foodwhiz-6d2a1",
+    "storage_bucket": "foodwhiz-6d2a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815056068464:android:f809ef90a1b47ead5639b5",
+        "android_client_info": {
+          "package_name": "com.foodwhiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815056068464-3unq8krlnda6u727k3caop3k51lc1fm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodwhiz",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "815056068464-qfcf1djrk3pfdh7ik1d68sbr29j0qpkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbkuhLvetee2hCngM52xfVk5-2edpdE6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815056068464-qfcf1djrk3pfdh7ik1d68sbr29j0qpkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
