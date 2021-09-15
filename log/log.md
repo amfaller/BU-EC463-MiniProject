@@ -34,3 +34,8 @@ Tony created a proof-of-concept application for use with Google authentication. 
 * [Configure Firebase with Android Credentials](https://rnfirebase.io/)
 * [General `auth` instructions](https://rnfirebase.io/auth/usage)
 * [Google-specific `auth` instructions](https://rnfirebase.io/auth/social-auth#google)
+
+## September 14, 2021
+
+Tony added Google authentication to the project.
+
