@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 
 export function SoftSquare(props) {
   const color = props.color;
@@ -16,7 +16,14 @@ export function SoftButton(props) {
 
   return (
     <View style={[shapes.softButton, { backgroundColor: color }]}>
-      {props.children}
+      <Pressable
+        onPress={() => {
+          console.log("Pressed!")
+        }}
+        style={shapes.softButton}
+      >
+        {props.children}
+      </Pressable>
     </View>
   )
 }
@@ -27,17 +34,13 @@ const shapes = StyleSheet.create({
     width: '80%',
     height: 250,
     borderRadius: 23,
-    shadowColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: { width: 9, height: 8 }
   },
   softButton: {
     flex: 1,
     width: '80%',
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 100,
     borderRadius: 23,
-    shadowColor: '#fff',
-    shadowOpacity: 0.8,
-    shadowOffset: { width: 9, height: 8 }
   }
 })

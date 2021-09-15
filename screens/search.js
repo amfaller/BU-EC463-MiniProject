@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import containers from '../styles/containers.js';
 import fonts from '../styles/fonts.js';
 import { SoftButton } from '../components/shapes.js';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function SearchScreen() {
   return (
@@ -19,7 +20,8 @@ export default function SearchScreen() {
         </View>
 
         <SoftButton color={'rgba(106, 230, 213, 0.3)'}>
-          <Text style={[fonts.cardTitle, {fontSize: 24}]}>
+          <Icon name='text-fields' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
             Search UPC ID
           </Text>
         </SoftButton>
@@ -27,7 +29,8 @@ export default function SearchScreen() {
         </View>
 
         <SoftButton color={'rgba(110, 240, 186, 0.3)'}>
-          <Text style={[fonts.cardTitle, {fontSize: 24}]}>
+          <Icon name='qr-code' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
             Scan QR Code
           </Text>
         </SoftButton>
@@ -35,7 +38,8 @@ export default function SearchScreen() {
         </View>
 
         <SoftButton color={'rgba(110, 240, 112, 0.3)'}>
-          <Text style={[fonts.cardTitle, {fontSize: 24}]}>
+          <Icon name='restaurant' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
             Add Recipe
           </Text>
         </SoftButton>

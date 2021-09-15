@@ -14,6 +14,15 @@ const fonts = StyleSheet.create({
 
         left: '5%',
         top: '8%',
+    },
+    buttonTitle: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 48,
+        color: '#1F2226',
+        lineHeight: 50,
+        textAlignVertical: 'center',
+
+        left: '5%',
     }
 });
 
