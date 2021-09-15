@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
+import { ScrollView, Text, View, Button, Pressable } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import containers from '../styles/containers.js';
 import fonts from '../styles/fonts.js';
-import { SoftButton } from '../components/shapes.js';
-
+import { SoftButton, shapes } from '../components/shapes.js';
 
 // ---------------------------------------------------------------------------------------
 // From https://rnfirebase.io/auth/social-auth#google
@@ -17,13 +17,31 @@ GoogleSignin.configure({
 
 function GoogleSignIn() {
   return (
-    <Button
-      title="Google Sign-In"
-      onPress={() => onGoogleButtonPress()
-        .then(() => console.log('Signed in with Google!'))
-        .catch((error) => console.log("API Call Error: " + error.message))
-      }
-    />
+    <View style={{ flex: 1 }}>
+      <SoftButton color={'rgba(72, 125, 224, 0.3)'}>
+        <Pressable
+          style={shapes.softButton}
+          onPress={() => onGoogleButtonPress()
+            .then(() => console.log('Signed in with Google!'))
+            .catch((error) => console.log("API Call Error: " + error.message))
+          }
+        >
+          <Icon name='login' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
+            Google Sign-In
+          </Text>
+        </Pressable>
+      </SoftButton>
+      <View style={{ flex: 1, paddingTop: 40 }}>
+      </View>
+    </View >
+    // <Button
+    //   title="Google Sign-In"
+    //   onPress={() => onGoogleButtonPress()
+    //     .then(() => console.log('Signed in with Google!'))
+    //     .catch((error) => console.log("API Call Error: " + error.message))
+    //   }
+    // />
   );
 }
 
@@ -39,7 +57,7 @@ async function onGoogleButtonPress() {
 }
 
 function logUserEmail(user) {
-  if(!user)
+  if (!user)
     return null;
 
   console.log("User email: " + user.email);
@@ -67,10 +85,10 @@ export default function SearchScreen() {
 
   // Show logged-in user email
   function helloUser(user) {
-    if(!user)
+    if (!user)
       return null;
 
-    return(
+    return (
       <Text>Hello {user.email}!</Text>
     );
   }
@@ -85,7 +103,9 @@ export default function SearchScreen() {
 
         <View style={[containers.titleContainer]}>
           <Text style={[fonts.titleFont]}>Profile</Text>
-          {GoogleSignIn()}
+          <View style={{ alignItems: 'center' }}>
+            {GoogleSignIn()}
+          </View>
           {helloUser(user)}
         </View>
 

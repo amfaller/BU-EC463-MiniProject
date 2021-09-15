@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import containers from '../styles/containers.js';
 import fonts from '../styles/fonts.js';
-import { SoftButton } from '../components/shapes.js';
+import { shapes, SoftButton } from '../components/shapes.js';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -20,10 +20,18 @@ export default function SearchScreen() {
         </View>
 
         <SoftButton color={'rgba(106, 230, 213, 0.3)'}>
-          <Icon name='text-fields' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
-          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
-            Search UPC ID
-          </Text>
+          <Pressable
+            style={shapes.softButton}
+            onPress={() => {
+              console.log('navigating to UPC ID screen')
+              navigation.navigate('UPCID')
+            }}
+          >
+            <Icon name='text-fields' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+            <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
+              Search UPC ID
+            </Text>
+          </Pressable>
         </SoftButton>
         <View style={{ flex: 1, paddingTop: 40 }}>
         </View>
@@ -46,6 +54,7 @@ export default function SearchScreen() {
         <View style={{ flex: 1, paddingTop: 40 }}>
         </View>
       </ScrollView>
-    </View>
+
+    </View >
   );
 }

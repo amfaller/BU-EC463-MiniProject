@@ -5,10 +5,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import RNBootSplash from "react-native-bootsplash";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import HomeSreen from './screens/home';
-import SearchScreen from './screens/search';
+import HomeScreen from './screens/home'
+import SearchStack from './screens/searchStack';
 import ProfileScreen from './screens/profile';
-import { getThemeColor } from './components/utils'
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +38,7 @@ export default function App() {
 
             if (route.name === 'Home') {
               iconName = 'home';
-            } else if (route.name === 'Search') {
+            } else if (route.name === 'SearchStack') {
               iconName = 'search';
             } else if (route.name === 'Profile') {
               iconName = 'account-circle';
@@ -52,8 +51,8 @@ export default function App() {
           headerShown: false,
           tabBarShowLabel: false
         })}>
-        <Tab.Screen name="Home" component={HomeSreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="SearchStack" component={SearchStack} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>

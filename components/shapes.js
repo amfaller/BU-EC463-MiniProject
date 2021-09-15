@@ -16,19 +16,12 @@ export function SoftButton(props) {
 
   return (
     <View style={[shapes.softButton, { backgroundColor: color }]}>
-      <Pressable
-        onPress={() => {
-          console.log("Pressed!")
-        }}
-        style={shapes.softButton}
-      >
-        {props.children}
-      </Pressable>
+      {props.children}
     </View>
   )
 }
 
-const shapes = StyleSheet.create({
+export const shapes = StyleSheet.create({
   softSquare: {
     flex: 3,
     width: '80%',

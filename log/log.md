@@ -39,3 +39,6 @@ Tony created a proof-of-concept application for use with Google authentication. 
 
 Tony added Google authentication to the project.
 
+Yuxuan rebuilt the entire app with react-native CLI following the [tutorial](https://reactnative.dev/docs/environment-setup). Furthermore, he added [TabNavigation](https://reactnavigation.org/docs/tab-based-navigation), [SplashScreen](https://github.com/zoontek/react-native-bootsplash) and [customizedFont](https://mehrankhandev.medium.com/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4) to the android native and re-drew the app icon.
+
+Yuxuan setup the basic framework for `Search` screen and implemented shapes that will be commonly used in app
