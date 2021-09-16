@@ -5,11 +5,10 @@ import { shapes, SoftButton } from '../components/shapes.js'
 import fonts from '../styles/fonts'
 import containers from "../styles/containers.js";
 
-import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore'
 
 // Put your FDA API key here
-var api_key = 'VoN3IN2HARcFIO6lqLJMnI0UUY0SnU92P4xWBmpO'
+var api_key = ''
 
 export default function UPCID() {
 
@@ -29,16 +28,19 @@ export default function UPCID() {
   // Function to create a new recipe in the Firebase db
   // TODO: Update this reference to be per-user
   function createRecipeInDb(recipeNumber) {
-    const reference = database().ref('/recipes/' + recipeNumber);
-    console.log("Created a database reference entry at /recipes/" + recipeNumber);
+    
+    // console.log("Created a firestore entry named Recipe" + recipeNumber);
+    const usersCollection = firestore().collection('Recipe' + recipeNumber);
   }
 
   // Function to save an FDA API query to the Firebase db
   // TODO: Update this reference to be per-user
   function sendJsonToDb(recipeNumber, upcID) {
-    return database()
-    .ref('/recipes/' + recipeNumber + '/' + upcID)
-    .set(JSON.parse(fdaOutput));
+
+    return firestore()
+      .collection('Recipe' + recipeNumber)
+      .doc(upcID)
+      .set(JSON.parse(fdaOutput));
     
   }
 
@@ -73,7 +75,10 @@ export default function UPCID() {
         else{
           console.log("Sending object to db");
           sendJsonToDb(recipeNumber, upcID)
-            .then(() => console.log('Data set.'));
+            .then(() => {
+              console.log('Data set.');
+              getRecipe(0);
+            });
         }
       })
       // This .then block for testing database read
@@ -97,48 +102,20 @@ export default function UPCID() {
   var initialized = 0;
 
   // Function to get all ingredients of recipe recipeNumber
-  function getRecipe(recipeNumber){
+  async function getRecipe(recipeNumber){
     console.log("In getRecipe");
     if(initialized == 0){
-      // createRecipeInDb(0);
+      createRecipeInDb(0);
       initialized = 1;
     }
 
-    // For testing
-    // console.log("Creating test data...");
-    // const reference = database().ref('/users/test');
-    // database()
-    //   .ref('/users/test')
-    //   .set({
-    //     name: 'Test',
-    //     age: '21',
-    //   })
-    //   .then(() => console.log('Test data set.'))
-    //   .then(() => {
-    //     database()
-    //       .ref('/users/test')
-    //       .once('value')
-    //       .then(snapshot => {
-    //         console.log('Test data: ', snapshot.val());
-    //       })
-    //   });
+    // TODO: Figure out why this isn't printing all documents in the collection
+    // https://stackoverflow.com/questions/52100103/getting-all-documents-from-one-collection-in-firestore/52101894
+    const recipeRead = await firestore().collection('Recipe' + recipeNumber).get();
+    console.log(recipeRead.docs.map(doc => doc.data()));    
 
-    database()
-      .ref('/recipes/' + recipeNumber)// + '/602652184024')
-      // .child('016000275690')
-      //.orderByValue()602
-      .once('value')   // 016000275690 for debugging
-        .then(snapshot => {
-          console.log("Database read: ");
-          console.log(snapshot.val());
-        })
-    var recipeArray = database().ref('/recipes/' + recipeNumber).orderByValue().once('value');
+    // TODO: Print compiled nutrition information to the screen
   }
-
-
-  // ------------------------------------------------------------------
-  // This region for displaying data
-
 
   // ------------------------------------------------------------------
 
@@ -186,7 +163,6 @@ export default function UPCID() {
               </Text>
             </Pressable>
           </SoftButton>
-          {getRecipe(1)}
         </View>
       </ScrollView>
     </View>
