@@ -48,3 +48,7 @@ Yuxuan setup the basic framework for `Search` screen and implemented shapes that
 Tony added backend support for the `Search` screen developed by Yuxuan. This includes taking in the text input as the UPC code, creating a request for the FDA API, and storing the returned JSON string into the Firebase database.
 
 Tony then looked into an issue where the Realtime Database wasn't accepting new read/write requests and found that it was best to migrate from the Realtime Database to the Firestore Database. He got writing working for this.
+
+Yuxuan finished writing customized button, however, he didn't figure out how to pass functions as `props` to the button component.
+
+Yuxuan built basic framework for search by UPC ID screen and scan QR code screen, the next step is to build a `result` screen to show the returned result from server

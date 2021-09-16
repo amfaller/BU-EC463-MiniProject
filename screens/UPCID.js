@@ -155,6 +155,8 @@ export default function UPCID() {
   }
 
   // ------------------------------------------------------------------
+// export default function UPCID({ navigation }) {
+//  const [upcid, setUpcid] = useState('1')
 
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
@@ -169,7 +171,7 @@ export default function UPCID() {
           borderRadius: 20,
           alignItems: 'stretch',
           padding: 20,
-          marginTop: 20,
+          marginTop: '20%',
         }}>
           <TextInput
             value={upcId}
@@ -182,27 +184,28 @@ export default function UPCID() {
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 20,
-              width: '80%'
+              marginBottom: 20
             }}
-            keyboardType='numeric'
+            keyboardType={'numeric'}
+
           />
 
-          <SoftButton color='rgb(214, 229, 189)' style={{ flex: 3 }}>
+          <SoftButton color='rgba(92, 232, 200, 0.5)' >
             <Pressable
               onPress={() => {
-                console.log('\"Search\" pressed');
                 queryFdaApi(recipeNumber, upcId);
+                navigation.navigate('Result', { data: upcid })
               }}
               style={shapes.softButton}
             >
-              <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
+              <Text style={[fonts.buttonTitle, { fontSize: 24, left: '95%' }]}>
                 Search
               </Text>
             </Pressable>
           </SoftButton>
-          <Text>{recipeOutput}</Text>
+
         </View>
       </ScrollView>
     </View>
-  )
+  );
 }
