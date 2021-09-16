@@ -84,10 +84,6 @@ export default function UPCID() {
             });
         }
       })
-      // This .then block for testing database read
-      .then( () => {
-        getRecipe(1);
-      })
       .catch((error) => {
         // Log any errors
         alert(JSON.stringify(error));
@@ -103,6 +99,18 @@ export default function UPCID() {
   // This region is for database reading
 
   var initialized = 0;
+  var totalCalories = 0;
+
+  var ingredientList = 'Ingredients: ';
+
+  // Function to take each FDA API query that's output by the DB and compile information
+  function sumNutrition(ingredient){
+    ingredientList += ingredient._data.foods[0].description;
+    ingredientList += '\n';
+
+    // The different elements of foodNutrients are various nutrient informations
+    totalCalories += ingredient._data.foods[0].foodNutrients[3].value;
+  }
 
   // Function to print ingredient dump to screen
   // https://stackoverflow.com/questions/9382167/serializing-object-that-contains-cyclic-object-value
@@ -119,11 +127,14 @@ export default function UPCID() {
       return val;
     })
 
-    console.log("Printing " + tempOutput);
+    // This is an array of the FDA API queries for each ingredient
+    var ingredients = JSON.parse(tempOutput)._docs;
 
-    // TODO: Change this from printing the JSON dump to nicer formatting
-    //       Will need to parse tempOutput to reclaim JSON object
-    setRecipeOutput(tempOutput);
+    // Run through each FDA API query and compile information
+    ingredients.forEach(sumNutrition);
+
+    // Set the text element to display the recipe
+    setRecipeOutput(ingredientList + '\nTotal calories: ' + totalCalories);
   }
 
   // Function to get all ingredients of recipe recipeNumber
