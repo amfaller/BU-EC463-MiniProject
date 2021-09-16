@@ -8,7 +8,7 @@ import containers from "../styles/containers.js";
 import database from '@react-native-firebase/database';
 
 // Put your FDA API key here
-var api_key = 'VoN3IN2HARcFIO6lqLJMnI0UUY0SnU92P4xWBmpO'
+var api_key = ''
 
 export default function UPCID() {
 
