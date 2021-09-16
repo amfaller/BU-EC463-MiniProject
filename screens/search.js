@@ -37,10 +37,19 @@ export default function SearchScreen({ navigation }) {
         </View>
 
         <SoftButton color={'rgba(110, 240, 186, 0.3)'}>
-          <Icon name='qr-code' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
-          <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
-            Scan QR Code
-          </Text>
+
+          <Pressable
+            style={shapes.softButton}
+            onPress={() => {
+              console.log('navigating to scanner screen')
+              navigation.navigate('Scanner')
+            }}
+          >
+            <Icon name='qr-code' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
+            <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
+              Scan QR Code
+            </Text>
+          </Pressable>
         </SoftButton>
         <View style={{ flex: 1, paddingTop: 40 }}>
         </View>

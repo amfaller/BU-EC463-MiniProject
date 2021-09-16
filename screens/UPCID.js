@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, Pressable, ScrollView } from 'react-native'
 
 import { shapes, SoftButton } from '../components/shapes.js'
@@ -6,6 +6,8 @@ import fonts from '../styles/fonts'
 import containers from "../styles/containers.js";
 
 export default function UPCID() {
+  const [upcid, setUpcid] = useState('1')
+
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       <ScrollView
@@ -22,31 +24,32 @@ export default function UPCID() {
           marginTop: 20,
         }}>
           <TextInput
-            onEndEditing={() => {
-              console.log('Editing ends')
-            }}
+            onChangeText={(input) => setUpcid(input)}
             placeholder='Input UPC ID here'
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 20,
-              width: '80%'
+              marginBottom: 20
             }}
+            keyboardType={'numeric'}
           />
 
-          <SoftButton color='rgb(214, 229, 189)' style={{ flex: 3 }}>
+          <SoftButton color='rgba(92, 232, 200, 0.5)' >
             <Pressable
               onPress={() => {
                 console.log('\"Search\" pressed')
+                console.log('Input: ' + upcid)
               }}
               style={shapes.softButton}
             >
-              <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
+              <Text style={[fonts.buttonTitle, { fontSize: 24, left: '95%' }]}>
                 Search
               </Text>
             </Pressable>
           </SoftButton>
+
         </View>
       </ScrollView>
     </View>
-  )
+  );
 }
