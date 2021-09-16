@@ -5,7 +5,7 @@ import { shapes, SoftButton } from '../components/shapes.js'
 import fonts from '../styles/fonts'
 import containers from "../styles/containers.js";
 
-export default function UPCID() {
+export default function UPCID({ navigation }) {
   const [upcid, setUpcid] = useState('1')
 
   return (
@@ -21,7 +21,7 @@ export default function UPCID() {
           borderRadius: 20,
           alignItems: 'stretch',
           padding: 20,
-          marginTop: 20,
+          marginTop: '20%',
         }}>
           <TextInput
             onChangeText={(input) => setUpcid(input)}
@@ -37,8 +37,8 @@ export default function UPCID() {
           <SoftButton color='rgba(92, 232, 200, 0.5)' >
             <Pressable
               onPress={() => {
-                console.log('\"Search\" pressed')
                 console.log('Input: ' + upcid)
+                navigation.navigate('Result', { data: upcid })
               }}
               style={shapes.softButton}
             >
