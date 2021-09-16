@@ -22,6 +22,9 @@ export default function UPCID() {
   // For use with queryFdaApi. Holds the returned JSON string
   var fdaOutput = '';
 
+  // For use with printRecipeToScreen
+  const [recipeOutput, setRecipeOutput] = useState('');
+
   // ------------------------------------------------------------------
   // This region is for FDA API querying and db writing
 
@@ -101,6 +104,28 @@ export default function UPCID() {
 
   var initialized = 0;
 
+  // Function to print ingredient dump to screen
+  // https://stackoverflow.com/questions/9382167/serializing-object-that-contains-cyclic-object-value
+  function printRecipeToScreen(recipeRead){
+    var seen = [];
+
+    var tempOutput = JSON.stringify(recipeRead, function(key, val) {
+      if (val != null && typeof val == "object") {
+        if (seen.indexOf(val) >= 0) {
+            return;
+        }
+        seen.push(val);
+      }
+      return val;
+    })
+
+    console.log("Printing " + tempOutput);
+
+    // TODO: Change this from printing the JSON dump to nicer formatting
+    //       Will need to parse tempOutput to reclaim JSON object
+    setRecipeOutput(tempOutput);
+  }
+
   // Function to get all ingredients of recipe recipeNumber
   async function getRecipe(recipeNumber){
     console.log("In getRecipe");
@@ -109,17 +134,13 @@ export default function UPCID() {
       initialized = 1;
     }
 
-    // TODO: Figure out why this isn't printing all documents in the collection
-    // Data is showing up on the Firebase console, so data is definitely being written
-    // https://stackoverflow.com/questions/52100103/getting-all-documents-from-one-collection-in-firestore/52101894
-    //
     // NOTE: MAKE SURE getRecipe IS CALLED WITH THE CORRECT ARGUMENT, OTHERWISE THIS WILL NOT WORK
-    //       THE ONLY RECIPE WITH DATA IS RECIPE 1
+    //       THE ONLY RECIPE WITH DATA IS RECIPE 1 AS OF SEPT 16, 2021
     console.log('Recipe' + recipeNumber)
     const recipeRead = await firestore().collection('Recipe' + recipeNumber).get();
-        console.log(recipeRead.docs.map(doc => doc.data()));    
+    console.log(recipeRead.docs.map(doc => doc.data()));     
 
-    // TODO: Print compiled nutrition information to the screen
+    printRecipeToScreen(recipeRead);
   }
 
   // ------------------------------------------------------------------
@@ -168,6 +189,7 @@ export default function UPCID() {
               </Text>
             </Pressable>
           </SoftButton>
+          <Text>{recipeOutput}</Text>
         </View>
       </ScrollView>
     </View>
