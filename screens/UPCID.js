@@ -77,13 +77,13 @@ export default function UPCID() {
           sendJsonToDb(recipeNumber, upcID)
             .then(() => {
               console.log('Data set.');
-              getRecipe(0);
+              getRecipe(1);
             });
         }
       })
       // This .then block for testing database read
       .then( () => {
-        getRecipe(0);
+        getRecipe(1);
       })
       .catch((error) => {
         // Log any errors
@@ -110,9 +110,14 @@ export default function UPCID() {
     }
 
     // TODO: Figure out why this isn't printing all documents in the collection
+    // Data is showing up on the Firebase console, so data is definitely being written
     // https://stackoverflow.com/questions/52100103/getting-all-documents-from-one-collection-in-firestore/52101894
+    //
+    // NOTE: MAKE SURE getRecipe IS CALLED WITH THE CORRECT ARGUMENT, OTHERWISE THIS WILL NOT WORK
+    //       THE ONLY RECIPE WITH DATA IS RECIPE 1
+    console.log('Recipe' + recipeNumber)
     const recipeRead = await firestore().collection('Recipe' + recipeNumber).get();
-    console.log(recipeRead.docs.map(doc => doc.data()));    
+        console.log(recipeRead.docs.map(doc => doc.data()));    
 
     // TODO: Print compiled nutrition information to the screen
   }
