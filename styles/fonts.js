@@ -23,6 +23,16 @@ const fonts = StyleSheet.create({
         textAlignVertical: 'center',
 
         left: '5%',
+    },
+    barTitle: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 24,
+        color: '#1F2226',
+    },
+    barContent: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 24,
+        color: '#1F2226',
     }
 });
 

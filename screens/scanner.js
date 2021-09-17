@@ -7,7 +7,7 @@ export default function Scanner({ navigation }) {
     <QRCodeScanner
       onRead={e => {
         console.log('data: ', e.data)
-        navigation.navigate('Result', { data: e.data })
+        navigation.navigate('Result', { upcID: e.data })
       }}
     />
   );

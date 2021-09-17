@@ -9,7 +9,3 @@ export function getThemeColorByOpacity(opacity) {
         return getThemeColor()
     }
 }
-
-export function testPressable() {
-    console.log("testPressable() called");
-}

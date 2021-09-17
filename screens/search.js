@@ -29,7 +29,7 @@ export default function SearchScreen({ navigation }) {
           >
             <Icon name='text-fields' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
             <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
-              Search UPC ID
+              Input UPC ID
             </Text>
           </Pressable>
         </SoftButton>

@@ -25,6 +25,13 @@ const containers = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 30
     },
+    bar: {
+        marginTop: 20,
+        backgroundColor: '#68CC86',
+        borderRadius: 23,
+        flexDirection: 'row',
+        padding: 10
+    }
 });
 
 export default containers;
