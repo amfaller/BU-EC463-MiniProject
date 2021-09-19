@@ -15,7 +15,7 @@ export default function HomeSreen() {
 
   // Functions for stats
   function getTodayIntake() {
-    database().ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`).once('value').then(snapshot => {
+    database().ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`).on('value', snapshot => {
       setIntake(snapshot.toJSON().calories)
     })
   }

@@ -52,3 +52,7 @@ Tony then looked into an issue where the Realtime Database wasn't accepting new 
 Yuxuan finished writing customized button, however, he didn't figure out how to pass functions as `props` to the button component.
 
 Yuxuan built basic framework for search by UPC ID screen and scan QR code screen, the next step is to build a `result` screen to show the returned result from server
+
+## September 19, 2021
+
+Yuxuan finished linking front-end and back-end by implemented submit and show summary functionality, now users are able to submit ingredients to their customized recipe; home screen is able to show users' daily intake
