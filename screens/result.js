@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Text, View, ScrollView } from "react-native";
-import firestore from '@react-native-firebase/firestore'
+import { Text, View, ScrollView, TextInput, Pressable, ToastAndroid } from "react-native";
+import database from '@react-native-firebase/database'
 
 import containers from '../styles/containers'
-import { SoftSquare } from '../components/shapes'
 import fonts from '../styles/fonts'
 import { getThemeColorByOpacity } from "../components/utils";
+import { firebase } from "@react-native-firebase/auth";
 
-export default function Result({ route }) {
+export default function Result({ route, navigation }) {
   let api_key = 'VoN3IN2HARcFIO6lqLJMnI0UUY0SnU92P4xWBmpO'
   const [fdaOutput, setFdaOutput] = useState({})
   var recipeNo = 2;
+  var amount = 100;
 
   // For use with printRecipeToScreen
   const [recipeOutput, setRecipeOutput] = useState('');
@@ -28,11 +29,31 @@ export default function Result({ route }) {
 
   // Function to save an FDA API query to the Firebase db
   // TODO: Update this reference to be per-user
-  function sendJsonToDb(recipeNumber, upcID) {
-    return firestore()
-      .collection('Recipe' + recipeNumber)
-      .doc(upcID)
-      .set(fdaOutput);
+  function updateDatabase(upcID, recipeName, amount, calories) {
+    const newRef = database().ref(`${firebase.auth().currentUser.uid}/recipes/${recipeName}/${upcID}`);
+
+    newRef
+      .set({
+        'time': new Date().toUTCString(),
+        'name': fdaOutput.foods[0].brandName,
+        'amount': parseInt(amount),
+        'calories': calories
+      })
+      .then(() => {
+        console.log("data pushed")
+      })
+
+    database()
+      .ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`)
+      .child('calories')
+      .set(firebase.database.ServerValue.increment(calories * amount / 100))
+      .then(() => { console.log('updated today\'s intake') })
+
+    database()
+      .ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`)
+      .child('lastMod')
+      .set(new Date().toUTCString())
+      .then(() => { console.log('updated last modified') })
   }
 
   function getData(upcID) {
@@ -62,24 +83,23 @@ export default function Result({ route }) {
           }
           console.log(">>> Response received: " + JSON.stringify(responseJson));
         })
-        .then(() => {
-          // If no error occurs, send the JSON string to the database
-          // if (upcID == null || fdaOutput.includes('Error loading from FDA API') || fdaOutput.includes('\"totalHits\":0')) {
-          //   console.log("Please enter a valid UPC ID");
-          //   setFdaOutput('')
-          // }
-          // else {
-          console.log("Sending object to db");
-          sendJsonToDb(recipeNumber, upcID)
-            .then(() => {
-              console.log('Data set.');
-              getRecipe(recipeNo);
-            });
-          // }
-        })
+        // .then(() => {
+        // If no error occurs, send the JSON string to the database
+        // if (upcID == null || fdaOutput.includes('Error loading from FDA API') || fdaOutput.includes('\"totalHits\":0')) {
+        //   console.log("Please enter a valid UPC ID");
+        //   setFdaOutput('')
+        // }
+        // else {
+        // console.log("Sending object to db");
+        // sendJsonToDb(recipeNumber, upcID)
+        //   .then(() => {
+        //     console.log('Data set.');
+        //     getRecipe(recipeNo);
+        //   });
+        // }
+        // })
         .catch((error) => {
           // Log any errors
-          // alert(JSON.stringify(error));
           console.error(error);
           setFdaOutput('Error loading from FDA API');
         })
@@ -152,11 +172,15 @@ export default function Result({ route }) {
 
   console.log('fdaOutput: ', fdaOutput)
 
+  // determine if `fdaOutput` is empty or error
   if (Object.keys(fdaOutput).length === 0
     || JSON.stringify(fdaOutput).includes('Error loading from FDA API')
     || JSON.stringify(fdaOutput).includes('error')
-  ) {    // determine if `fdaOutput` is empty or error
-    queryFdaApi(recipeNo, upcID)
+  ) {
+    // request only when data is not loaded (do not re-request if there is error)
+    if (Object.keys(fdaOutput).length === 0) {
+      queryFdaApi(recipeNo, upcID)
+    }
     return (
       <View style={{ flex: 1 }}>
         <ScrollView
@@ -166,14 +190,24 @@ export default function Result({ route }) {
         >
 
           <View style={{ marginTop: '5%' }} />
-          <SoftSquare color={'rgba(75, 212, 41, 0.3)'}>
-            <Text style={[fonts.cardTitle]}>
+          <View style={{
+            flex: 3,
+            backgroundColor: getThemeColorByOpacity(0.4),
+            borderRadius: 23,
+            width: '90%',
+            padding: 20,
+          }}>
+            <Text style={[fonts.cardTitle, { left: 5, top: 0 }]}>
               Result
             </Text>
-            <Text>
-              calories:
+
+            <Text style={containers.bar}>
+              <Text style={[fonts.barContent, { left: 5 }]}>
+                Error loading from FDA APIs
+              </Text>
             </Text>
-          </SoftSquare>
+
+          </View>
           <View style={{ flex: 1, paddingTop: 40 }} />
 
         </ScrollView>
@@ -237,9 +271,70 @@ export default function Result({ route }) {
               </Text>
             </Text>
           </View>
-          <View style={{ flex: 1, paddingTop: 40 }} />
+          <View style={{ paddingTop: 20 }} />
 
-
+          <View style={[containers.bar, {
+            backgroundColor: 'rgba(130, 194, 255, 0.4)',
+            width: '90%',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+          }]}>
+            <View style={{ flexDirection: 'row', padding: 10, width: '100%', justifyContent: 'space-evenly' }}>
+              <Text style={fonts.barTitle}>
+                Recipe to add:
+              </Text>
+              <TextInput
+                onChangeText={(input) => {
+                  recipeNo = input
+                }}
+                placeholder='2'
+                style={{
+                  backgroundColor: '#ffffff',
+                  borderRadius: 20,
+                  width: '40%'
+                }}
+                keyboardType={'ascii-capable'}
+              />
+            </View>
+            <View style={{ flexDirection: 'row', padding: 10, width: '100%', justifyContent: 'space-evenly' }}>
+              <Text style={fonts.barTitle}>
+                Amount:
+              </Text>
+              <TextInput
+                onChangeText={(input) => {
+                  amount = input
+                }}
+                placeholder='100'
+                style={{
+                  backgroundColor: '#ffffff',
+                  borderRadius: 20,
+                  width: '40%'
+                }}
+                keyboardType={'numeric'}
+              />
+              <Text style={fonts.barContent}>
+                g
+              </Text>
+            </View>
+            <View style={[{ backgroundColor: '#82C2FF', paddingTop: 10, borderRadius: 20 }]}>
+              <Pressable onPress={() => {
+                if (recipeNo === '' || amount === '') {
+                  alert('Please input recipe to add and amount served')
+                }
+                console.log('recipeNo: ', recipeNo, ' amount: ', amount, ' email:', firebase.auth().currentUser.email)
+                updateDatabase(upcID, recipeNo, amount, fdaOutput.foods[0].foodNutrients[3].value)
+                ToastAndroid.show(
+                  'Added to ' + firebase.auth().currentUser.email + '\'s recipe ' + recipeNo,
+                  ToastAndroid.SHORT
+                )
+                navigation.navigate('Search')
+              }}>
+                <Text style={[fonts.barTitle, { textAlign: 'center' }]}>
+                  Add to recipe
+                </Text>
+              </Pressable>
+            </View>
+          </View>
         </ScrollView>
       </View>
     );

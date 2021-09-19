@@ -36,7 +36,6 @@ export default function SearchScreen({ navigation }) {
         <View style={{ flex: 1, paddingTop: 40 }}>
         </View>
 
-        {/* TODO: Camera functionality */}
         <SoftButton color={'rgba(110, 240, 186, 0.3)'}>
 
           <Pressable
@@ -55,7 +54,7 @@ export default function SearchScreen({ navigation }) {
         <View style={{ flex: 1, paddingTop: 40 }}>
         </View>
 
-        {/* TODO: When this button is clicked, read from the database and increment recipeNumber in UPCID.js */}
+        {/* TODO: When this button is clicked, read from the database and increment recipeNumber in UPCID.js
         <SoftButton color={'rgba(110, 240, 112, 0.3)'}>
           <Icon name='restaurant' size={40} color='rgb(110, 110, 110)' style={{ bottom: 5, paddingLeft: '5%' }} />
           <Text style={[fonts.buttonTitle, { fontSize: 24 }]}>
@@ -63,7 +62,7 @@ export default function SearchScreen({ navigation }) {
           </Text>
         </SoftButton>
         <View style={{ flex: 1, paddingTop: 40 }}>
-        </View>
+        </View> */}
       </ScrollView>
 
     </View >

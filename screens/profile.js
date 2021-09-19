@@ -35,13 +35,6 @@ function GoogleSignIn() {
       <View style={{ flex: 1, paddingTop: 40 }}>
       </View>
     </View >
-    // <Button
-    //   title="Google Sign-In"
-    //   onPress={() => onGoogleButtonPress()
-    //     .then(() => console.log('Signed in with Google!'))
-    //     .catch((error) => console.log("API Call Error: " + error.message))
-    //   }
-    // />
   );
 }
 

@@ -11,9 +11,15 @@ const fonts = StyleSheet.create({
         fontSize: 48,
         color: '#1F2226',
         lineHeight: 50,
-
-        left: '5%',
-        top: '8%',
+        paddingTop: '5%',
+        paddingLeft: '5%'
+    },
+    cardContent: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 36,
+        color: '#1F2226',
+        paddingRight: '5%',
+        textAlign: 'right'
     },
     buttonTitle: {
         fontFamily: 'Poppins-SemiBold',

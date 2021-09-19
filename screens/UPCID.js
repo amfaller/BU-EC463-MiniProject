@@ -26,10 +26,6 @@ export default function UPCID({ navigation }) {
           <TextInput
             value={upcId}
             onChangeText={onChangeUpcId}
-            onEndEditing={() => {
-              console.log('Editing ends with value ' + upcId);
-
-            }}
             placeholder='Input UPC ID here'
             style={{
               backgroundColor: '#ffffff',
@@ -40,14 +36,17 @@ export default function UPCID({ navigation }) {
 
           />
 
-          <SoftButton color='rgba(92, 232, 200, 0.5)' >
+          <SoftButton color='#82C2FF' >
             <Pressable
               onPress={() => {
                 navigation.navigate('Result', { upcID: upcId })
               }}
               style={shapes.softButton}
             >
-              <Text style={[fonts.buttonTitle, { fontSize: 24, left: '95%' }]}>
+              <Text style={[fonts.buttonTitle, {
+                left: 0, fontSize: 24,
+                width: '100%', textAlign: 'center'
+              }]}>
                 Search
               </Text>
             </Pressable>

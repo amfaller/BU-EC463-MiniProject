@@ -5,7 +5,7 @@ export function SoftSquare(props) {
   const color = props.color;
 
   return (
-    <View style={[shapes.softSquare, { backgroundColor: color }]}>
+    <View style={[shapes.softSquare, { backgroundColor: color, justifyContent: 'space-between'}]}>
       {props.children}
     </View>
   )
