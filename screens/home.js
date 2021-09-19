@@ -79,7 +79,7 @@ export default function HomeSreen() {
 
         <SoftSquare color={'rgba(217, 192, 100, 0.3)'}>
           <Text style={[fonts.cardTitle]}>
-            Last Update Time
+            Last Update
           </Text>
           <Text style={fonts.cardContent}>
             {lastMod}
