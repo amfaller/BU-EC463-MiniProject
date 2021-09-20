@@ -41,7 +41,7 @@ There are also some specific React Native features we would like to use to help 
 
 ## Supporting Artifacts
 
-[Link to demo video]()
+[Link to demo video](https://drive.google.com/file/d/1HxSzBoP89wePVlUZW71aQ_pLoduLpiGO/view?usp=sharing)
 
 ## Modules, Tools, Source Used Including Attribution
 
