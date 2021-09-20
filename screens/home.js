@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, ScrollView, Text, View } from 'react-native';
+import React, { useRef } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import database, { firebase } from '@react-native-firebase/database'
 
 import containers from '../styles/containers.js';
@@ -9,37 +9,79 @@ import { useState } from 'react/cjs/react.development';
 
 export default function HomeSreen() {
   // Global vars
-  const [intake, setIntake] = useState(0)
-  const [numOfRecipes, setNumOfRecipes] = useState(0)
-  const [lastMod, setLastMod] = useState(null)
+  // const [intake, setIntake] = useState('Login to see stats')
+  // const [numOfRecipes, setNumOfRecipes] = useState('Login to see stats')
+  // const [lastMod, setLastMod] = useState('Login to see stats')
+  // const [recipeList, setRecipeList] = useState([])
+  const [userData, setUserData] = useState({})
+  const [intake, setIntake] = useState(-1)
+  const [recipeList, setRecipeList] = useState(null)
+  const [lastMod, setLastMod] = useState('Login to see stats')
 
-  // Functions for stats
-  function getTodayIntake() {
-    database().ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`).on('value', snapshot => {
-      setIntake(snapshot.toJSON().calories)
-    })
+  // Functions
+  function getNumOfRecipe() {
+    if (recipeList === null) {
+      return 'Login to check stats';
+    } else {
+      return Object.keys(recipeList).length
+    }
   }
 
-  /**
-   * Get number of recipes and init recipeList with recipe names
-   */
-  function getRecipeList() {
-    database().ref(`${firebase.auth().currentUser.uid}/recipes`).once('value').then(snapshot => {
-      setNumOfRecipes(Object.keys(snapshot.toJSON()).length)
-    })
+  function getIntake() {
+    if (intake == -1) {
+      return 'Login to check stats'
+    } else {
+      return intake + ' KCal'
+    }
   }
 
-  function getLastMod() {
-    database().ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`).once('value').then(snapshot => {
-      setLastMod(snapshot.toJSON().lastMod)
-    })
-  }
+  // function showRecipes() {
+  //   if (recipeList == null) return null;
+
+  //   console.log('not null')
+  //   var recipeNames = Object.keys(recipeList)
+  //   return recipeNames.map((names) => {
+  //     <View
+  //       key={recipeList[names]}
+  //       style={{ height: 100, width: 100, backgroundColor: 'rgb(100, 100, 100)' }}
+  //     >
+  //       <Text>
+  //         {names} ha
+  //       </Text>
+  //     </View>
+  //   })
+  // }
 
   // Inits
-  getRecipeList();
-  getTodayIntake();
-  getLastMod();
-  
+  const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    if (user && Object.keys(userData).length === 0) {
+      database().ref(`${firebase.auth().currentUser.uid}/`).once('value', snapshot => {
+        console.log('snapshot: ', snapshot.toJSON())
+        if (intake == -1) {
+          var date = new Date().toDateString()
+          setIntake(snapshot.child(date + '/calories').val())
+        }
+
+        if (recipeList === null) {
+          setRecipeList(snapshot.child('recipes').val())
+        }
+
+        if (lastMod == 'Login to see stats') {
+          setLastMod(snapshot.child('lastMod').val())
+        }
+        console.log(
+          'intake: ', intake,
+          'recipeList: ', recipeList,
+          'lastMod: ', lastMod
+        )
+        setUserData(snapshot)
+      })
+    }
+  })
+
+  unsubscribe();
+  console.log('user data: ', userData)
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -57,7 +99,7 @@ export default function HomeSreen() {
             Today's Intake
           </Text>
           <Text style={[fonts.cardContent, { textAlign: 'right' }]}>
-            {intake} KCal
+            {getIntake()}
           </Text>
         </SoftSquare>
         <View style={{ flex: 1, paddingTop: 40 }}>
@@ -68,7 +110,7 @@ export default function HomeSreen() {
             # of Recipes
           </Text>
           <Text style={fonts.cardContent}>
-            {numOfRecipes}
+            {getNumOfRecipe()}
           </Text>
         </SoftSquare>
         <View style={{ flex: 1, paddingTop: 40 }}>

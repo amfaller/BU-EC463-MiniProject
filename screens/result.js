@@ -50,7 +50,7 @@ export default function Result({ route, navigation }) {
       .then(() => { console.log('updated today\'s intake') })
 
     database()
-      .ref(`${firebase.auth().currentUser.uid}/${new Date().toDateString()}`)
+      .ref(`${firebase.auth().currentUser.uid}/`)
       .child('lastMod')
       .set(new Date().toUTCString())
       .then(() => { console.log('updated last modified') })
